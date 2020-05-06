@@ -95,6 +95,7 @@ const checkAnswer = (answer) => {
 
 // dom
 
+u('input').focus();
 u('input').addEventListener('blur', () =>  {
 	state.currentTestNotRanked = true;
 	u('input').focus();
