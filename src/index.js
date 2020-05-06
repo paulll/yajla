@@ -104,21 +104,21 @@ const drawQuestion = () => {
 
 setTimeout(drawQuestion, 0);
 const listener = () => {
-	setTimeout(() => {
-		if (checkAnswer(u('input').value)) {
-			nextQuestion()
-			drawQuestion()
-		}
-		if (u('input').value == ' ') {
-			state.currentTestNotRanked = true;
-			u('answer').style.opacity = '1';
-			u('input').value = '';
-		}
-	}, 0);
+	if (checkAnswer(u('input').value)) {
+		nextQuestion()
+		drawQuestion()
+	}
+	if (u('input').value == ' ') {
+		state.currentTestNotRanked = true;
+		u('answer').style.opacity = '1';
+		u('input').value = '';
+	}
 }
+const listenerAsync = () => setTimeout(listener, 0);
 
 u('input').addEventListener('keydown', () => {
 	u('answer').style.opacity = '0';
-	listener();
+	listenerAsync();
 });
-u('input').addEventListener('keypress', listener);
+u('input').addEventListener('keypress', listenerAsync);
+u('input').addEventListener('input', listenerAsync);
