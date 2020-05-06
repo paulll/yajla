@@ -12,9 +12,9 @@ const glyphs = [...hiragana, ...katakana]
 const state = {
 	question: localStorage.getItem('yajla.question') || 'あ' ,
 	answer: localStorage.getItem('yajla.answer') || 'a',
-	level: localStorage.getItem('yajla.level') || 5,
-	tests: localStorage.getItem('yajla.tests') || 0,
-	totalTime: localStorage.getItem('yajla.totalTime') || 0,
+	level: +localStorage.getItem('yajla.level') || 5,
+	tests: +localStorage.getItem('yajla.tests') || 0,
+	totalTime: +localStorage.getItem('yajla.totalTime') || 0,
 	statsPerChar: localStorage.getItem('yajla.statsPerChar') ? JSON.parse(localStorage.getItem('yajla.statsPerChar')) : {},
 	timeStarted: Date.now(),
 	currentTestNotRanked: true
@@ -99,6 +99,7 @@ const drawQuestion = () => {
 	u('char').classList.remove('animate');
 	void u('char').offsetWidth;
 	u('char').classList.add('animate');
+	u('stats').textContent = `avg ${Math.floor(state.totalTime / state.tests) || 1000}ms\t level ${state.level}`;
 }
 
 setTimeout(drawQuestion, 0);
