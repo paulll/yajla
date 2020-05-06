@@ -64,7 +64,7 @@ const nextQuestion = () => {
 }
 
 const checkAnswer = (answer) => {
-	if (answer == state.answer) {
+	if (answer.toLowerCase() == state.answer) {
 		if (!state.currentTestNotRanked) {
 			const timeElapsed = Date.now() - state.timeStarted;
 			

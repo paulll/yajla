@@ -12,14 +12,20 @@ body
 	display flex
 	align-items center
 	justify-content center
+	overflow overlay
 
 .content
 	display flex
 	flex-direction column
 	text-align center
-
+	box-sizing border-box
+	max-width 100vw
+	
 	.header
+		overflow hidden
 		opacity 0.8
+		height auto
+		white-space wrap
 
 	#char
 		font-size 10em
@@ -39,18 +45,24 @@ body
 		display flex
 		align-items center
 		justify-content center
+		overflow hidden
+		max-width 100vw
 		
 	#input
 		display inline-block
 		background-color #333
+		font-size 2em
 		border none
-		padding 1rem 2rem
 		color white
-		font-size 2em	
+		padding 1rem 2rem
+		max-width 100vw
+		box-sizing border-box
+		
 		
 	#descr 
 		padding 20px
 		opacity 0.8
+		box-sizing border-box
 		
 	#stats
 		padding 20px
