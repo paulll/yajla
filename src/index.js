@@ -6,6 +6,7 @@ const u = (x) => document.getElementById(x);
 
 const config = {
 	targetTime: 1200, // 1.2s avg
+	window: 50,
 };
 
 const glyphs = [...hiragana, ...katakana]
@@ -16,6 +17,7 @@ const state = {
 	tests: +localStorage.getItem('yajla.tests') || 0,
 	totalTime: +localStorage.getItem('yajla.totalTime') || 0,
 	statsPerChar: localStorage.getItem('yajla.statsPerChar') ? JSON.parse(localStorage.getItem('yajla.statsPerChar')) : {},
+	window: localStorage.getItem('yajla.window') ? JSON.parse(localStorage.getItem('yajla.window')) : [],
 	timeStarted: Date.now(),
 	currentTestNotRanked: true
 }
@@ -27,6 +29,7 @@ const saveState = () => {
 	localStorage.setItem('yajla.tests', state.tests);
 	localStorage.setItem('yajla.totalTime', state.totalTime);
 	localStorage.setItem('yajla.statsPerChar', JSON.stringify(state.statsPerChar));
+	localStorage.setItem('yajla.window', JSON.stringify(state.window));
 }
 
 const nextQuestion = () => {
@@ -68,9 +71,14 @@ const checkAnswer = (answer) => {
 		if (!state.currentTestNotRanked) {
 			const timeElapsed = Date.now() - state.timeStarted;
 			
-			// update global stats
-			state.totalTime += timeElapsed;
-			state.tests++;
+			if (timeElapsed > 7500)
+				return;
+
+			// update global stats (window)
+			const old = state.tests + 1 >= config.window ? state.window.shift() : 0;
+			state.totalTime += timeElapsed - old
+			state.tests = state.tests + 1 >= config.window ? config.window : state.tests + 1;
+			state.window.push(timeElapsed);
 
 			// update per-character stats
 			if (!state.statsPerChar.hasOwnProperty(state.question))
