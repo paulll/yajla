@@ -102,17 +102,22 @@ const drawQuestion = () => {
 }
 
 setTimeout(drawQuestion, 0);
+const listener = () => {
+	setTimeout(() => {
+		if (checkAnswer(u('input').value)) {
+			nextQuestion()
+			drawQuestion()
+		}
+		if (u('input').value == ' ') {
+			state.currentTestNotRanked = true;
+			u('answer').style.opacity = '1';
+			u('input').value = '';
+		}
+	}, 0);
+}
+
 u('input').addEventListener('keydown', () => {
 	u('answer').style.opacity = '0';
-    setTimeout(() => {
-    	if (checkAnswer(u('input').value)) {
-    		nextQuestion()
-    		drawQuestion()
-    	}
-    	if (u('input').value == ' ') {
-    		state.currentTestNotRanked = true;
-    		u('answer').style.opacity = '1';
-    		u('input').value = '';
-    	}
-    }, 0);
+	listener();
 });
+u('input').addEventListener('keypress', listener);
