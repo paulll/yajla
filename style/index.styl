@@ -1,0 +1,65 @@
+body
+	margin 0
+	padding 0
+	position absolute
+	top 0
+	bottom 0
+	left 0
+	right 0
+	color white
+	background-color #1c1c1c
+	font-family 'Jetbrains Mono', 'Noto'
+	display flex
+	align-items center
+	justify-content center
+
+.content
+	display flex
+	flex-direction column
+	text-align center
+
+	.header
+		opacity 0.8
+
+	#char
+		font-size 10em
+		&.animate
+			animation show 200ms 1 ease
+		
+	#word
+		font-size 2em
+		opacity 0.7
+	
+	#answer
+		font-size 2em
+		padding 1rem
+		opacity 0
+
+	.input-wrap
+		display flex
+		align-items center
+		justify-content center
+		
+	#input
+		display inline-block
+		background-color #333
+		border none
+		padding 1rem 2rem
+		color white
+		font-size 2em	
+		
+	#descr 
+		padding 20px
+		opacity 0.8
+		
+@keyframes show {
+  0% {
+    transform: scale(0.8)
+  }
+  50% {
+    transform: scale(1.2);
+  }
+  100% {
+    transform: scale(1.0);
+  }
+}			
