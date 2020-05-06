@@ -16,6 +16,7 @@ const state = {
 	level: +localStorage.getItem('yajla.level') || 5,
 	tests: +localStorage.getItem('yajla.tests') || 0,
 	totalTime: +localStorage.getItem('yajla.totalTime') || 0,
+	rounds: +localStorage.getItem('yajla.rounds') || 0,
 	statsPerChar: localStorage.getItem('yajla.statsPerChar') ? JSON.parse(localStorage.getItem('yajla.statsPerChar')) : {},
 	window: localStorage.getItem('yajla.window') ? JSON.parse(localStorage.getItem('yajla.window')) : [],
 	timeStarted: Date.now(),
@@ -26,6 +27,7 @@ const saveState = () => {
 	localStorage.setItem('yajla.question', state.question);
 	localStorage.setItem('yajla.answer', state.answer);
 	localStorage.setItem('yajla.level', state.level);
+	localStorage.setItem('yajla.rounds', state.rounds);	
 	localStorage.setItem('yajla.tests', state.tests);
 	localStorage.setItem('yajla.totalTime', state.totalTime);
 	localStorage.setItem('yajla.statsPerChar', JSON.stringify(state.statsPerChar));
@@ -36,7 +38,7 @@ const nextQuestion = () => {
 
 	// basic difficulty increasing strategy
 	// not very smart, btw
-	if (state.tests && state.tests%10 == 0) {
+	if (state.tests && state.rounds%10 == 0) {
 		const avg = state.totalTime / state.tests;
 		console.log('avg', avg);
 		if (avg <= config.targetTime)
@@ -78,6 +80,7 @@ const checkAnswer = (answer) => {
 			const old = state.tests + 1 >= config.window ? state.window.shift() : 0;
 			state.totalTime += timeElapsed - old
 			state.tests = state.tests + 1 >= config.window ? config.window : state.tests + 1;
+			state.rounds++;
 			state.window.push(timeElapsed);
 
 			// update per-character stats
