@@ -99,7 +99,7 @@ const checkAnswer = (answer, changes) => {
 			state.statsPerChar[state.question].totalTime += timeElapsed
 			state.statsPerChar[state.question].tests++;
 		}
-		
+
 		state.rounds++;
 		saveState();
 		return true;
@@ -146,8 +146,12 @@ const listener = () => {
 }
 const listenerAsync = () => setTimeout(listener, 0);
 
-u('input').addEventListener('keydown', () => {
+u('input').addEventListener('keydown', (e) => {
 	u('answer').style.opacity = '0';
+	if (e.key && e.key == ' ') {
+		u('input').value = ' ';
+		e.preventDefault();
+	}
 	listenerAsync();
 });
 u('input').addEventListener('keypress', listenerAsync);
