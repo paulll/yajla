@@ -7,7 +7,7 @@ const u = (x) => document.getElementById(x);
 const config = {
 	targetTime: 1200, // 1.2s avg
 	window: 50,
-	exponent: 3
+	exponent: 5
 };
 
 const glyphs = [...hiragana, ...katakana]
