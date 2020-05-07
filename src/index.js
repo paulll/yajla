@@ -11,6 +11,7 @@ const config = {
 };
 
 const glyphs = [...hiragana, ...katakana]
+window['glyphs'] = glyphs;
 const state = {
 	question: localStorage.getItem('yajla.question') || 'あ' ,
 	answer: localStorage.getItem('yajla.answer') || 'a',
@@ -69,11 +70,20 @@ const nextQuestion = () => {
 	saveState();
 }
 
-const checkAnswer = (answer) => {
+const checkAnswer = (answer, changes) => {
 	if (answer.toLowerCase() == state.answer) {
 		if (!state.currentTestNotRanked) {
 			const timeElapsed = Date.now() - state.timeStarted;
 			
+			// time bonus if correct on the first try
+			if (state.answer.length == changes) {
+				if (changes == 2)
+					timeElapsed -= 200;
+				if (changes > 2)
+					timeElapsed -= 400 * changes;
+			}
+
+
 			if (timeElapsed > 7500)
 				return;
 
@@ -81,7 +91,6 @@ const checkAnswer = (answer) => {
 			const old = state.tests + 1 >= config.window ? state.window.shift() : 0;
 			state.totalTime += timeElapsed - old
 			state.tests = state.tests + 1 >= config.window ? config.window : state.tests + 1;
-			state.rounds++;
 			state.window.push(timeElapsed);
 
 			// update per-character stats
@@ -89,10 +98,10 @@ const checkAnswer = (answer) => {
 				state.statsPerChar[state.question] = {tests: 0, totalTime: 0}
 			state.statsPerChar[state.question].totalTime += timeElapsed
 			state.statsPerChar[state.question].tests++;
-
-			saveState()
 		}
-
+		
+		state.rounds++;
+		saveState();
 		return true;
 	}
 }
@@ -116,11 +125,19 @@ const drawQuestion = () => {
 }
 
 setTimeout(drawQuestion, 0);
+let changes = 0, lastState = '';
 const listener = () => {
-	if (checkAnswer(u('input').value)) {
+	if (lastState != u('input').value) {
+		changes++;
+		lastState = u('input').value;
+	}
+
+	if (checkAnswer(u('input').value, changes)) {
 		nextQuestion()
 		drawQuestion()
+		changes = 0;
 	}
+
 	if (u('input').value == ' ') {
 		state.currentTestNotRanked = true;
 		u('answer').style.opacity = '1';
