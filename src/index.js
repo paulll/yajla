@@ -51,7 +51,6 @@ const state = {
 	timeStarted: Date.now(),
 	currentTestNotRanked: true,
 }
-window.state = state;
 
 const targetStats = {};
 const localCalibrationStats = localStorage.getItem('yajla.c.statsPerChar') ? JSON.parse(localStorage.getItem('yajla.c.statsPerChar')) : {};
@@ -95,7 +94,6 @@ const nextQuestion = () => {
 			: 99999999;
 		const stats = slice.map( x => getAveragePerChar(x.character));
 		const sum = stats.reduce((a,b) => a+b, 0);
-		console.log(Array(slice.length).fill(0).map((_,i) => ([slice[i], stats[i]/sum*100])));
 		return chance.weighted(slice, stats);
 	}
 	
