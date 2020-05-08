@@ -62,7 +62,7 @@ const nextQuestion = () => {
 		// then chance.weighted([0:level], [avgTime]) 
 		const slice = glyphs.slice(0, state.level);
 		const getAveragePerChar = (char) => state.statsPerChar.hasOwnProperty(char) 
-			? config.exponent ** ((state.statsPerChar[char].totalTime / state.statsPerChar[char].tests)/config.targetTime)
+			? state.statsPerChar[char].totalTime / state.statsPerChar[char].tests
 			: 99999999;
 		const stats = slice.map( x => getAveragePerChar(x.character))
 		return chance.weighted(slice, stats);
