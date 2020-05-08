@@ -17,6 +17,7 @@
   "dependencies": {
     "chance": "^1.1.4",
     "chancejs": "0.0.8",
+    "trianglify": "^3.0.0",
     "umbrellajs": "^3.1.0"
   }
 }

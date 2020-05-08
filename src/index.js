@@ -2,6 +2,7 @@ import 'chance'
 import hiragana from './hiragana.json'
 import katakana from './katakana.json'
 import userStats from './stats.json'
+import Trianglify from 'trianglify'
 
 const u = (x) => document.getElementById(x);
 
@@ -94,6 +95,7 @@ const nextQuestion = () => {
 			: 99999999;
 		const stats = slice.map( x => getAveragePerChar(x.character));
 		const sum = stats.reduce((a,b) => a+b, 0);
+		// console.log(Array(slice.length).fill(0).map((_,i) => ([slice[i], stats[i]/sum*100])));
 		return chance.weighted(slice, stats);
 	}
 	
@@ -188,3 +190,40 @@ u('input').addEventListener('keydown', (e) => {
 });
 u('input').addEventListener('keypress', listenerAsync);
 u('input').addEventListener('input', listenerAsync);
+
+const seed = Math.random()*10000;
+const trianglify = () => {
+	const old = u('canvas');
+
+	const pattern = Trianglify({
+		width: window.innerWidth,
+		height: window.innerHeight,
+		x_colors: 'Spectral'
+	});
+	const canvas = pattern.canvas();
+	canvas.id = 'canvas';
+
+	if (localStorage.getItem('yajla.theme') == 'dark') {
+		setTimeout(() => {
+			if (old)
+				return document.body.replaceChild(canvas, old);
+			document.body.appendChild(canvas);
+			
+		}, 200);
+	} else {
+		if (old)
+			return document.body.replaceChild(canvas, old);
+		document.body.appendChild(canvas);
+	}
+}
+
+trianglify();
+window.addEventListener('resize', trianglify);
+
+if (localStorage.getItem('yajla.theme') == 'bright')
+	document.body.classList.add('bright');
+
+u('bulb').addEventListener('click', () => {
+	document.body.classList.toggle('bright');
+	localStorage.setItem('yajla.theme', document.body.classList.contains('bright') ? 'bright' : 'dark');
+})

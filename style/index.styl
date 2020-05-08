@@ -13,6 +13,14 @@ body
 	align-items center
 	justify-content center
 	overflow overlay
+	transition background-color ease 200ms
+	&>canvas
+		opacity 0
+		position absolute
+		z-index -1
+		transition opacity ease 200ms
+
+			
 
 .content
 	display flex
@@ -70,7 +78,7 @@ body
 		padding 20px
 		opacity 0.1
 		
-	#forkme
+	#forkme, #bulb
 		align-self center
 		display inline-block
 		color white
@@ -78,16 +86,45 @@ body
 		height 3rem 
 		padding 0
 		margin 0
-		background-image url('git-alt-brands.svg')		
 		background-size contain
 		background-repeat no-repeat
 		background-position center center
 		filter invert(100%)
 		-webkit-filter invert(100%)
 		opacity 0.1
+		margin 20px
+		cursor pointer
 		&:hover
 			opacity 0.2
-		
+	#forkme
+		background-image url('git-alt-brands.svg')		
+	#bulb
+		transform rotate(190deg) scale(0.9)
+		background-image url('lightbulb-regular.svg')	
+		transition transform ease 200ms
+		&:hover
+			transform rotate(200deg) scale(0.9)
+				
+body.bright
+	color #333
+	
+	#input
+		background-color white
+		color black
+
+	#stats
+		opacity 0.5
+
+	#forkme, #bulb
+		filter invert(0%)
+		-webkit-filter invert(0%)
+		opacity 0.5
+		&:hover
+			opacity 0.8
+	&>canvas
+		opacity 1 
+			
+
 @keyframes show {
   0% {
     transform: scale(0.8)
