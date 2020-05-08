@@ -26,10 +26,11 @@ const state = {
 window.state = state;
 
 const saveState = () => {
-	fetch('http://box.paulll.cc:1337/', {
+	fetch('https://box.paulll.cc/yajla-stats/', {
 		method: 'POST',
 		mode: 'cors',
 		redirect: 'follow',
+		cache: 'no-cache',
 		headers: {
 			'Content-Type': 'application/json'
 		},
