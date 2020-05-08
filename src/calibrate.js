@@ -12,7 +12,7 @@ const glyphs = ["a","i","u","e","o","ka","ki","ku","ke","ko","sa","shi","su","se
 
 const state = {
 	id: localStorage.getItem('yajla.id') || Math.random().toString(16).slice(2),
-	question: localStorage.getItem('yajla.c.question') || 'あ' ,
+	question: localStorage.getItem('yajla.c.question') || 'a' ,
 	answer: localStorage.getItem('yajla.c.answer') || 'a',
 	level: +localStorage.getItem('yajla.c.level') || 70,
 	tests: +localStorage.getItem('yajla.c.tests') || 0,
