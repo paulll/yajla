@@ -159,17 +159,11 @@ const drawQuestion = () => {
 }
 
 setTimeout(drawQuestion, 0);
-let changes = 0, lastState = '';
-const listener = () => {
-	if (lastState != u('input').value) {
-		changes++;
-		lastState = u('input').value;
-	}
 
+const listener = () => {
 	if (checkAnswer(u('input').value, changes)) {
 		nextQuestion()
 		drawQuestion()
-		changes = 0;
 	}
 
 	if (u('input').value == ' ') {
@@ -185,6 +179,10 @@ u('input').addEventListener('keydown', (e) => {
 	if (e.key && e.key == ' ') {
 		u('input').value = ' ';
 		e.preventDefault();
+	}
+	if (e.key && e.key == 'w' && e.ctrlKey) {
+		u('input').value = '';
+		e.preventDefault();	
 	}
 	listenerAsync();
 });
