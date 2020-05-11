@@ -111,7 +111,7 @@ const nextQuestion = () => {
 	saveState();
 }
 
-const checkAnswer = (answer, changes) => {
+const checkAnswer = (answer) => {
 	if (answer.toLowerCase() == state.answer) {
 		if (!state.currentTestNotRanked) {
 			const timeElapsed = Date.now() - state.timeStarted;
@@ -161,7 +161,7 @@ const drawQuestion = () => {
 setTimeout(drawQuestion, 0);
 
 const listener = () => {
-	if (checkAnswer(u('input').value, changes)) {
+	if (checkAnswer(u('input').value)) {
 		nextQuestion()
 		drawQuestion()
 	}
