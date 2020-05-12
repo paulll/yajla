@@ -4,7 +4,7 @@
   "description": "Yet another japanese learning app",
   "main": "index.js",
   "scripts": {
-    "build": "rm -rf dist && parcel build views/* --public-url ."
+    "build": "rm -rf dist && parcel build views/* --public-url . --experimental-scope-hoisting"
   },
   "author": "paulll",
   "license": "MIT",

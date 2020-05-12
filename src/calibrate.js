@@ -1,5 +1,4 @@
-import 'chance'
-
+import {weightedRandom} from './util'
 const u = (x) => document.getElementById(x);
 
 const config = {
@@ -66,7 +65,7 @@ const nextQuestion = () => {
 			? state.statsPerChar[char].totalTime / state.statsPerChar[char].tests
 			: 99999999;
 		const stats = slice.map( x => getAveragePerChar(x.character))
-		return chance.weighted(slice, stats);
+		return weightedRandom(slice, stats);
 	}
 	
 	let selected = select();

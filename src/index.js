@@ -1,4 +1,4 @@
-import 'chance'
+import {weightedRandom} from './util'
 import hiragana from './hiragana.json'
 import katakana from './katakana.json'
 import userStats from './stats.json'
@@ -16,7 +16,6 @@ if (lastv != v && !lastv) {
 	localStorage.removeItem('yajla.tests');
 	localStorage.removeItem('yajla.window');	
 }
-
 
 const averageStats = {};
 for (const id of Object.keys(userStats)) {
@@ -96,7 +95,7 @@ const nextQuestion = () => {
 		const stats = slice.map( x => getAveragePerChar(x.character));
 		const sum = stats.reduce((a,b) => a+b, 0);
 		// console.log(Array(slice.length).fill(0).map((_,i) => ([slice[i], stats[i]/sum*100])));
-		return chance.weighted(slice, stats);
+		return weightedRandom(slice, stats);
 	}
 	
 	let selected = select();
