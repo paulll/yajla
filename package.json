@@ -14,7 +14,7 @@
   "license": "MIT",
   "devDependencies": {
     "parcel": "^2.0.0-alpha.3.2",
-    "pug": "^2.0.4",
+    "pug": "^3.0.1",
     "stylus": "^0.54.7",
     "trianglify": "^3.0.0"
   }
