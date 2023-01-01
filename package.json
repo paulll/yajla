@@ -13,7 +13,7 @@
   "author": "paulll",
   "license": "MIT",
   "devDependencies": {
-    "parcel": "^2.0.0-alpha.3.2",
+    "parcel": "^2.8.2",
     "pug": "^2.0.4",
     "stylus": "^0.54.7",
     "trianglify": "^3.0.0"
