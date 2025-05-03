@@ -1,0 +1,38 @@
+name: Build & Deploy 🚀
+on:
+  push:
+    branches: ['src']
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Install Node
+      uses: actions/setup-node@v3
+      with:
+        node-version: '20.x'
+    - name: Pull Repo
+      uses: actions/checkout@v4
+    - name: Install Dependencies
+      run: npm ci .
+    - name: Run build
+      run: npm run build
+    - name: Upload to Pages
+      uses: actions/upload-pages-artifact@v2
+      with: 
+        path: './dist'
+  deploy:
+    concurrency:
+      group: "pages"
+      cancel-in-progress: false
+    needs: build
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    permissions:
+      pages: write
+      id-token: write
+    runs-on: ubuntu-latest
+    steps:
+    - name: Deploy to Pages
+      id: deployment
+      uses: actions/deploy-pages@v2
