@@ -17,7 +17,7 @@ jobs:
     - name: Run build
       run: npm run build
     - name: Upload to Pages
-      uses: actions/upload-pages-artifact@v2
+      uses: actions/upload-pages-artifact@v3
       with: 
         path: './dist'
   deploy:
@@ -35,4 +35,4 @@ jobs:
     steps:
     - name: Deploy to Pages
       id: deployment
-      uses: actions/deploy-pages@v2
+      uses: actions/deploy-pages@v4
